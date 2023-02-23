@@ -40,7 +40,7 @@ def test_remote():
         url = f"{TARGET}{path}"
         time.sleep(2)
         r = requests.get(url)
-        if r.request_code == 200:
+        if r.status_code == 200:
             answers.put(url)
             sys.stdout.write('+')
         else:
